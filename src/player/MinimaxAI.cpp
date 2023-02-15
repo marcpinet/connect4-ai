@@ -12,9 +12,9 @@ std::pair<int, int>
 MinimaxAI::compute(const Board &board, unsigned int depth, int player, int alpha, int beta) {
     std::pair<int, int> best;
     if(player == static_cast<int>(this->get_type()))
-        best = std::make_pair(-1, INT_MIN);
+        best = std::make_pair(-1, std::numeric_limits<int>::min());
     else
-        best = std::make_pair(-1, INT_MAX);
+        best = std::make_pair(-1, std::numeric_limits<int>::max());
 
     if(depth == 0 || board.is_terminal())
         return std::make_pair(-1, this->evaluate(board));
@@ -28,7 +28,7 @@ MinimaxAI::compute(const Board &board, unsigned int depth, int player, int alpha
         new_board.place(move, static_cast<PlayerColor>(player));
 
         if(new_board.get_winner() == this->get_type()) {
-            best = std::make_pair(move, INT_MAX);
+            best = std::make_pair(move, std::numeric_limits<int>::max());
             return best;
         }
 
@@ -68,5 +68,6 @@ int MinimaxAI::get_move(const Board &board) {
         return board.get_possible_moves()[rand() % board.get_possible_moves().size()];
 
     else
-        return this->compute(board, depth, static_cast<int>(this->get_type()), INT_MIN, INT_MAX).first;
+        return this->compute(board, depth, static_cast<int>(this->get_type()), std::numeric_limits<int>::min(),
+                             std::numeric_limits<int>::max()).first;
 }

@@ -1,5 +1,6 @@
 #pragma once
 
+#include <limits>
 #include "AIPlayer.hpp"
 
 class MinimaxAI : public AIPlayer {
@@ -9,7 +10,8 @@ private:
     int evaluate(const Board &board);
 
     std::pair<int, int>
-    compute(const Board &board, unsigned int depth, int player, int alpha = INT_MIN, int beta = INT_MAX);
+    compute(const Board &board, unsigned int depth, int player, int alpha = std::numeric_limits<int>::min(),
+            int beta = std::numeric_limits<int>::max());
 
 
 public:
