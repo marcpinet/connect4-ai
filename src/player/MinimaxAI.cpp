@@ -1,4 +1,3 @@
-#include <iostream>
 #include "player/MinimaxAI.hpp"
 
 int MinimaxAI::evaluate(const Board &board) {

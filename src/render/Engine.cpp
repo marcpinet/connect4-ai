@@ -45,7 +45,7 @@ void Engine::run() {
                     PlayerColor color;
                     if(!board.is_terminal() && dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
                        dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr) {
-                        color = this->turn % 2 == 0 ? PlayerColor::RED : PlayerColor::YELLOW;
+                        color = this->turn % 2 == 0 ? player1->get_type() : player2->get_type();
                         int move = this->get_human_move();
                         if(move == -1)
                             continue;
@@ -77,11 +77,11 @@ void Engine::run() {
             // Making AI place (only if they're instanced as AIPlayer)
             if(dynamic_cast<AIPlayer *>(this->player1.get()) != nullptr && this->turn % 2 == 0) {
                 int move = this->player1->get_move(board);
-                board.place(move, PlayerColor::RED);
+                board.place(move, this->player1->get_type());
                 this->turn++;
             } else if(dynamic_cast<AIPlayer *>(this->player2.get()) != nullptr && this->turn % 2 == 1) {
                 int move = this->player2->get_move(board);
-                board.place(move, PlayerColor::YELLOW);
+                board.place(move, this->player2->get_type());
                 this->turn++;
             }
 
@@ -121,8 +121,12 @@ void Engine::update(const Board &board) {
     for(auto &disc_sprite: this->discs_sprites)
         this->window.draw(*disc_sprite);
 
-    if(!board.is_terminal())
-        this->handle_hover(PlayerColor::RED);
+    // Handle hover in function of the player turn and color (and only if they're Human)
+    if(!board.is_terminal() && dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
+       dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr) {
+        PlayerColor color = this->turn % 2 == 0 ? player1->get_type() : player2->get_type();
+        this->handle_hover(color);
+    }
 
     this->window.draw(this->board_sprite);
 
