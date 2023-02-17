@@ -8,7 +8,7 @@ Maybe, in the future, I'll implement other algorithms if I want to (such as MCTS
 
 ## 🎥 Demo Minimax with Alpha Beta Pruning
 
-https://user-images.githubusercontent.com/52708150/218887447-573d2c01-5913-42e8-8558-aea4cd7308cf.mp4
+https://user-images.githubusercontent.com/52708150/219687697-d5a2e5b7-3d84-40cd-907d-4ee64157e32d.mp4
 
 ## 💡 How to use
 
