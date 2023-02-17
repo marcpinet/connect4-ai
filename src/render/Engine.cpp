@@ -51,6 +51,7 @@ void Engine::run() {
                             continue;
                         board.place(move, color);
                         this->turn++;
+                        this->update(board);
                     }
                 }
             }
