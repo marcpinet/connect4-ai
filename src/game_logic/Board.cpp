@@ -133,3 +133,68 @@ void Board::remove(int column) {
     }
 }
 
+int Board::count_adjacent_discs(int nb_adjacent_pieces, PlayerColor color) const {
+    int count = 0;
+    // Checking rows
+    for(int x = 0; x < Board::height; x++) {
+        for(int y = 0; y < Board::width - nb_adjacent_pieces + 1; y++) {
+            bool found = true;
+            for(int i = 0; i < nb_adjacent_pieces; i++) {
+                if(this->repr.at(x).at(y + i) != color) {
+                    found = false;
+                    break;
+                }
+            }
+            if(found)
+                count++;
+        }
+    }
+
+    // Checking columns
+    for(int x = 0; x < Board::height - nb_adjacent_pieces + 1; x++) {
+        for(int y = 0; y < Board::width; y++) {
+            bool found = true;
+            for(int i = 0; i < nb_adjacent_pieces; i++) {
+                if(this->repr.at(x + i).at(y) != color) {
+                    found = false;
+                    break;
+                }
+            }
+            if(found)
+                count++;
+        }
+    }
+
+    // Checking diagonal 1
+    for(int x = 0; x < Board::height - nb_adjacent_pieces + 1; x++) {
+        for(int y = 0; y < Board::width - nb_adjacent_pieces + 1; y++) {
+            bool found = true;
+            for(int i = 0; i < nb_adjacent_pieces; i++) {
+                if(this->repr.at(x + i).at(y + i) != color) {
+                    found = false;
+                    break;
+                }
+            }
+            if(found)
+                count++;
+        }
+    }
+
+    // Checking diagonal 2
+    for(int x = 0; x < Board::height - nb_adjacent_pieces + 1; x++) {
+        for(int y = nb_adjacent_pieces - 1; y < Board::width; y++) {
+            bool found = true;
+            for(int i = 0; i < nb_adjacent_pieces; i++) {
+                if(this->repr.at(x + i).at(y - i) != color) {
+                    found = false;
+                    break;
+                }
+            }
+            if(found)
+                count++;
+        }
+    }
+
+    return count;
+}
+

@@ -35,4 +35,6 @@ public:
     [[nodiscard]] PlayerColor get_winner() const;
 
     [[nodiscard]] bool is_terminal() const;
+
+    [[nodiscard]] int count_adjacent_discs(int nb_adjacent_pieces, PlayerColor color) const;
 };

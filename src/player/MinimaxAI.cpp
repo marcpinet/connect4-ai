@@ -1,10 +1,20 @@
 #include "player/MinimaxAI.hpp"
 
 int MinimaxAI::evaluate(const Board &board) {
-    int player = static_cast<int>(this->get_type());
-    int winner = static_cast<int>(board.get_winner());
+    PlayerColor opponent = this->get_type() == PlayerColor::RED ? PlayerColor::YELLOW : PlayerColor::RED;
+    int score = 0;
+    int opponent_score = 0;
 
-    return winner == player ? 1 : winner == -player ? -1 : 0;
+    score = 3 * board.count_adjacent_discs(2, this->get_type());
+    opponent_score = 3 * board.count_adjacent_discs(2, opponent);
+
+    score += 10 * board.count_adjacent_discs(3, this->get_type());
+    opponent_score += 10 * board.count_adjacent_discs(3, opponent);
+
+    score += 1000 * board.count_adjacent_discs(4, this->get_type());
+    opponent_score += 1000 * board.count_adjacent_discs(4, opponent);
+
+    return score - opponent_score;
 }
 
 std::pair<int, int>
