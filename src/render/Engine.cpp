@@ -116,10 +116,7 @@ void Engine::update_discs_sprites(const Board &board) {
 void Engine::update(const Board &board) {
     this->window.clear(sf::Color::White);
 
-    // Updating discs and drawing them
-    this->update_discs_sprites(board);
-    for(auto &disc_sprite: this->discs_sprites)
-        this->window.draw(*disc_sprite);
+    this->window.draw(this->board_sprite);
 
     // Handle hover in function of the player turn and color (and only if they're Human)
     if(!board.is_terminal() && dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
@@ -128,7 +125,10 @@ void Engine::update(const Board &board) {
         this->handle_hover(color);
     }
 
-    this->window.draw(this->board_sprite);
+    // Updating discs and drawing them
+    this->update_discs_sprites(board);
+    for(auto &disc_sprite: this->discs_sprites)
+        this->window.draw(*disc_sprite);
 
     if(board.is_terminal())
         this->ask_for_restart();
@@ -143,9 +143,9 @@ Engine::~Engine() {
 void Engine::handle_hover(PlayerColor player) {
     sf::Color color;
     if(player == PlayerColor::RED)
-        color = sf::Color(255, 0, 0, 50);
+        color = sf::Color(255, 0, 0, 80);
     else if(player == PlayerColor::YELLOW)
-        color = sf::Color(255, 255, 0, 50);
+        color = sf::Color(255, 255, 0, 80);
 
     sf::Vector2i cursorPos = sf::Mouse::getPosition(this->window);
 
@@ -156,7 +156,7 @@ void Engine::handle_hover(PlayerColor player) {
 
     if(column_to_hover != -1) {
         for(int i = 0; i < Board::get_height(); i++) {
-            sf::RectangleShape hover(sf::Vector2f(57, 57));
+            sf::CircleShape hover(27);
             hover.setPosition(static_cast<float>(8 + 71 * column_to_hover), static_cast<float>(8 + i * 71));
             hover.setFillColor(color);
             this->window.draw(hover);
