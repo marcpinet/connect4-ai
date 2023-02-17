@@ -5,13 +5,18 @@ int MinimaxAI::evaluate(const Board &board) {
     int score = 0;
     int opponent_score = 0;
 
-    score = 3 * board.count_adjacent_discs(2, this->get_type());
+    if(board.get_winner() == this->get_type())
+        return 100000000;
+    else if(board.get_winner() == opponent)
+        return -100000000;
+
+    score = 1 * board.count_adjacent_discs(2, this->get_type());
     opponent_score = 3 * board.count_adjacent_discs(2, opponent);
 
-    score += 10 * board.count_adjacent_discs(3, this->get_type());
+    score += 3 * board.count_adjacent_discs(3, this->get_type());
     opponent_score += 10 * board.count_adjacent_discs(3, opponent);
 
-    score += 1000 * board.count_adjacent_discs(4, this->get_type());
+    score += 10 * board.count_adjacent_discs(4, this->get_type());
     opponent_score += 1000 * board.count_adjacent_discs(4, opponent);
 
     return score - opponent_score;
