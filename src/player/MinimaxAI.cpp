@@ -73,15 +73,10 @@ MinimaxAI::compute(const Board &board, unsigned int depth, int player, int alpha
 }
 
 int MinimaxAI::get_move(const Board &board) {
-    int depth = static_cast<int>(board.get_possible_moves().size());
-    if(depth == 0 || board.is_terminal())
+    if(board.is_terminal())
         return -1;
 
-    if(depth == MinimaxAI::DEFAULT_DEPTH)
-        // Getting random move as a first move
-        return board.get_possible_moves()[rand() % board.get_possible_moves().size()];
-
-    else
-        return this->compute(board, depth, static_cast<int>(this->get_type()), std::numeric_limits<int>::min(),
-                             std::numeric_limits<int>::max()).first;
+    return this->compute(board, MinimaxAI::DEFAULT_DEPTH, static_cast<int>(this->get_type()),
+                         std::numeric_limits<int>::min(),
+                         std::numeric_limits<int>::max()).first;
 }
