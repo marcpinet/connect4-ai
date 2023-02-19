@@ -43,8 +43,8 @@ void Engine::run() {
             if(event.type == sf::Event::MouseButtonPressed) {
                 if(event.mouseButton.button == sf::Mouse::Left) {
                     PlayerColor color;
-                    if(!board.is_terminal() && dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
-                       dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr) {
+                    if(!board.is_terminal() && (dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
+                                                dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr)) {
                         color = this->turn % 2 == 0 ? player1->get_type() : player2->get_type();
                         int move = this->get_human_move();
                         if(move == -1)
@@ -120,8 +120,8 @@ void Engine::update(const Board &board) {
     this->window.draw(this->board_sprite);
 
     // Handle hover in function of the player turn and color (and only if they're Human)
-    if(!board.is_terminal() && dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
-       dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr) {
+    if(!board.is_terminal() && (dynamic_cast<HumanPlayer *>(this->player1.get()) != nullptr ||
+                                dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr)) {
         PlayerColor color = this->turn % 2 == 0 ? player1->get_type() : player2->get_type();
         this->handle_hover(color);
     }
