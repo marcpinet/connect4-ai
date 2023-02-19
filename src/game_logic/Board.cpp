@@ -114,10 +114,32 @@ bool Board::is_terminal() const {
 }
 
 std::vector<int> Board::get_possible_moves() const {
+    //std::vector<int> moves;
+    //for(int i = 0; i < Board::width; i++) {
+    //    if(this->repr.at(0).at(i) == PlayerColor::NONE)
+    //        moves.push_back(i);
+    //}
+    //return moves;
+
+    // Order by CAN WIN for each player
     std::vector<int> moves;
     for(int i = 0; i < Board::width; i++) {
-        if(this->repr.at(0).at(i) == PlayerColor::NONE)
-            moves.push_back(i);
+        if(this->repr.at(0).at(i) == PlayerColor::NONE) {
+            Board copy = *this;
+            copy.place(i, PlayerColor::RED);
+            if(copy.get_winner() == PlayerColor::RED) {
+                moves.insert(moves.begin(), i);
+            } else {
+                copy = *this;
+                copy.place(i, PlayerColor::YELLOW);
+                if(copy.get_winner() == PlayerColor::YELLOW) {
+                    moves.insert(moves.begin(), i);
+                } else {
+                    moves.push_back(i);
+                }
+            }
+            copy.remove(i);
+        }
     }
     return moves;
 }
@@ -197,4 +219,3 @@ int Board::count_adjacent_discs(int nb_adjacent_pieces, PlayerColor color) const
 
     return count;
 }
-

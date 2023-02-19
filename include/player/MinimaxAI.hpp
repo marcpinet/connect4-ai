@@ -5,7 +5,7 @@
 
 class MinimaxAI : public AIPlayer {
 private:
-    static const unsigned int DEFAULT_DEPTH = 7;
+    static const unsigned int DEFAULT_DEPTH = 10;
 
     int evaluate(const Board &board);
 

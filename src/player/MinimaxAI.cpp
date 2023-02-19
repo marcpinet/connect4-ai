@@ -76,7 +76,5 @@ int MinimaxAI::get_move(const Board &board) {
     if(board.is_terminal())
         return -1;
 
-    return this->compute(board, MinimaxAI::DEFAULT_DEPTH, static_cast<int>(this->get_type()),
-                         std::numeric_limits<int>::min(),
-                         std::numeric_limits<int>::max()).first;
+    return this->compute(board, MinimaxAI::DEFAULT_DEPTH, static_cast<int>(this->get_type())).first;
 }
