@@ -12,23 +12,59 @@ https://user-images.githubusercontent.com/52708150/219687697-d5a2e5b7-3d84-40cd-
 
 ## 💡 How to use
 
-### 🪟 Windows (hard one)
+### 🪟 Windows
 
-1. Install SFML 2.5.1 [here](https://www.sfml-dev.org/files/SFML-2.5.1-windows-gcc-7.3.0-mingw-64-bit.zip) and the corresponding MinGW build [here](https://sourceforge.net/projects/mingw-w64/files/Toolchains%20targetting%20Win64/Personal%20Builds/mingw-builds/7.3.0/threads-posix/seh/x86_64-7.3.0-release-posix-seh-rt_v5-rev0.7z/download)
+1. Clone the repository 
+```bash
+git clone https://github.com/marcpinet/connect4-ai
+```
 
-2. Extract and put these 2 folders in something like `C:` for example (the disk root)
+2. Initialize the SFML submodule
 
-3. Build with `cmake`.
+```bash
+git submodule update --init --recursive
+```
+
+3. Inside the cloned repo, run
+
+```bash
+mkdir output && cmake . && cmake --build output --target Connect4_AI
+```
+
+If you've a C/C++ IDE, you should already have `cmake` and `gcc`/`g++`. If not, then install CMake [here](https://cmake.org/download/) and gcc/g++ [here](https://www.devdungeon.com/content/install-gcc-compiler-windows-msys2-cc).
+
+3. Fin and run the .exe
 
 ### 🐧 Linux / WSL
 
-1. Install the following packages
+1. Run the holy command
 
 ```bash
-sudo apt install libsfml-dev gdb cmake build-essential
+sudo apt-get update
 ```
 
-2. Build with `cmake`.
+2. Install the following packages
+
+```bash
+sudo apt install libsfml-dev gdb cmake build-essential libvorbis-dev libopenal-dev freetype2-demos libudev-dev libx11-dev libxrandr-dev
+```
+
+3. Clone the repository 
+```bash
+git clone https://github.com/marcpinet/connect4-ai
+```
+
+4. Initialize the SFML submodule
+
+```bash
+git submodule update --init --recursive
+```
+
+5. Build with `cmake`.
+
+```bash
+mkdir output && cmake . && cmake --build output --target Connect4_AI
+```
 
 ## 📄 Note
 
