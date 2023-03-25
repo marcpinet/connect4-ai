@@ -47,7 +47,7 @@ void Engine::run() {
                                                 dynamic_cast<HumanPlayer *>(this->player2.get()) != nullptr)) {
                         color = this->turn % 2 == 0 ? player1->get_type() : player2->get_type();
                         int move = this->get_human_move();
-                        if(move == -1)
+                        if(!board.can_place(move))
                             continue;
                         board.place(move, color);
                         this->turn++;
