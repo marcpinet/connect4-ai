@@ -37,4 +37,8 @@ public:
     [[nodiscard]] bool is_terminal() const;
 
     [[nodiscard]] int count_adjacent_discs(int nb_adjacent_pieces, PlayerColor color) const;
+
+    [[nodiscard]] bool can_place(int column) const;
+
+    [[nodiscard]] size_t hash() const;
 };

@@ -1,4 +1,3 @@
-#include <iostream>
 #include <memory>
 #include "render/Engine.hpp"
 #include "player/HumanPlayer.hpp"

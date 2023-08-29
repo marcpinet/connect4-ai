@@ -24,6 +24,11 @@ int MinimaxAI::evaluate(const Board &board) {
 
 std::pair<int, int>
 MinimaxAI::compute(const Board &board, unsigned int depth, int player, int alpha, int beta) {
+    // Checking inside the Transposition Table
+    std::unique_ptr<std::pair<int, int>> cached_value = transposition_table.get(board);
+    if(cached_value != nullptr)
+        return *cached_value;
+
     std::pair<int, int> best;
     if(player == static_cast<int>(this->get_type()))
         best = std::make_pair(-1, std::numeric_limits<int>::min());
@@ -69,6 +74,8 @@ MinimaxAI::compute(const Board &board, unsigned int depth, int player, int alpha
                 break;
         }
     }
+    transposition_table.set(board, best.first, best.second);
+
     return best;
 }
 

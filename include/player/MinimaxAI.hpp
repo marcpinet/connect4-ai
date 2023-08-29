@@ -2,6 +2,7 @@
 
 #include <limits>
 #include "AIPlayer.hpp"
+#include "game_logic/util/TranspositionTable.hpp"
 
 class MinimaxAI : public AIPlayer {
 private:
@@ -9,10 +10,11 @@ private:
 
     int evaluate(const Board &board);
 
+    TranspositionTable transposition_table;
+
     std::pair<int, int>
     compute(const Board &board, unsigned int depth, int player, int alpha = std::numeric_limits<int>::min(),
             int beta = std::numeric_limits<int>::max());
-
 
 public:
     explicit MinimaxAI(PlayerColor type) : AIPlayer(type) {};

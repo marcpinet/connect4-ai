@@ -220,16 +220,16 @@ int Board::count_adjacent_discs(int nb_adjacent_pieces, PlayerColor color) const
     return count;
 }
 
-std::unique_ptr<Board> Board::clone() const {
-    auto newBoard = std::make_unique<Board>();
-    for(unsigned int i = 0; i < height; ++i) {
-        for(unsigned int j = 0; j < width; ++j) {
-            newBoard->repr[i][j] = repr[i][j];
-        }
-    }
-    return newBoard;
-}
-
 bool Board::can_place(int column) const {
     return column >= 0 && column < Board::width && this->repr.at(0).at(column) == PlayerColor::NONE;
+}
+
+std::size_t Board::hash() const {
+    std::size_t seed = 0;
+    for(const auto &row: repr) {
+        for(const auto &cell: row) {
+            seed ^= static_cast<std::size_t>(cell) + 0x9e3779b9 + (seed << 6) + (seed >> 2);
+        }
+    }
+    return seed;
 }
